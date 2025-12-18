@@ -7,6 +7,7 @@ import "../styles/pages/Profil.css";
 
 const ProfilPerusahaan = () => {
   const [loading, setLoading] = useState(true);
+  const [profileSource, setProfileSource] = useState("");
   
   // State Input Sementara untuk Array
   const [newMisi, setNewMisi] = useState("");
@@ -37,7 +38,7 @@ const ProfilPerusahaan = () => {
       mapsEmbed: ""
     },
     sosial_media: {
-      linkedin: "",
+      // linkedin: "",
       facebook: "",
       instagram: "",
       tiktok: "",
@@ -50,9 +51,9 @@ const ProfilPerusahaan = () => {
     setLoading(true);
     try {
       const result = await getProfil();
-      if (result) {
-        // Pastikan struktur data sesuai, jika backend mengirim wrapper 'data', sesuaikan di sini
-        setFormData(result.data || result); 
+      if (result?.data) {
+        setFormData(result.data); 
+        setProfileSource(result.source || "");
       }
     } catch (error) {
       console.error("Gagal memuat profil:", error);
@@ -128,6 +129,11 @@ const ProfilPerusahaan = () => {
         <div className="mb-4">
           <h2 className="fw-bold text-dark">Profil Perusahaan</h2>
           <p className="text-muted">Kelola data utama perusahaan yang akan ditampilkan di website.</p>
+          {profileSource && !["api", "cache"].includes(profileSource) && (
+            <div className="alert alert-warning mt-3">
+              Perubahan company profile tidak akan otomatis tampil di website public sampai public mengambil sumber terbaru (saat ini memakai {profileSource === "fallback-json" ? "profil.json" : "data lokal"}).
+            </div>
+          )}
         </div>
 
         {/* --- SECTION 1: IDENTITAS & TENTANG --- */}
@@ -240,14 +246,26 @@ const ProfilPerusahaan = () => {
             <div className="row g-3">
               <div className="col-md-6">
                 <div className="input-group">
-                  <span className="input-group-text bg-light">LinkedIn</span>
-                  <input type="text" className="form-control form-control-custom rounded-end" value={formData.sosial_media?.linkedin || ""} onChange={(e) => handleNestedChange('sosial_media', 'linkedin', e.target.value)} />
+                  <span className="input-group-text bg-light">Instagram</span>
+                  <input type="text" className="form-control form-control-custom rounded-end" value={formData.sosial_media?.instagram || ""} onChange={(e) => handleNestedChange('sosial_media', 'instagram', e.target.value)} />
                 </div>
               </div>
               <div className="col-md-6">
                 <div className="input-group">
-                  <span className="input-group-text bg-light">Instagram</span>
-                  <input type="text" className="form-control form-control-custom rounded-end" value={formData.sosial_media?.instagram || ""} onChange={(e) => handleNestedChange('sosial_media', 'instagram', e.target.value)} />
+                  <span className="input-group-text bg-light">Youtube</span>
+                  <input type="text" className="form-control form-control-custom rounded-end" value={formData.sosial_media?.youtube || ""} onChange={(e) => handleNestedChange('sosial_media', 'youtube', e.target.value)} />
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="input-group">
+                  <span className="input-group-text bg-light">Facebook</span>
+                  <input type="text" className="form-control form-control-custom rounded-end" value={formData.sosial_media?.facebook || ""} onChange={(e) => handleNestedChange('sosial_media', 'facebook', e.target.value)} />
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="input-group">
+                  <span className="input-group-text bg-light">LinkedIn</span>
+                  <input type="text" className="form-control form-control-custom rounded-end" value={formData.sosial_media?.linkedin || ""} onChange={(e) => handleNestedChange('sosial_media', 'linkedin', e.target.value)} />
                 </div>
               </div>
             </div>
