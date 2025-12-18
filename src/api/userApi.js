@@ -10,14 +10,22 @@ export async function getUsers() {
 }
 
 export async function createUser(data) {
-  const payload = { name: data.name?.trim(), email: data.email?.trim(), password: data.password, telp: data.telp?.trim() };
+  const payload = {
+    name: data.name?.trim(),
+    email: data.email?.trim(),
+    password: data.password,
+    telp: data.telp?.trim(),
+  };
   const response = await axiosClient.post(USER_CREATE_PATH, payload);
   return response.data;
 }
 
 export async function updateUser(id, data) {
-  const payload = { name: data.name?.trim(), email: data.email?.trim(), telp: data.telp?.trim() };
-  delete payload.id;
+  const payload = {
+    name: data.name?.trim(),
+    email: data.email?.trim(),
+    telp: data.telp?.trim(),
+  };
   if (data.password) {
     payload.password = data.password;
     if (data.currentPassword) payload.currentPassword = data.currentPassword;
@@ -29,7 +37,11 @@ export async function updateUser(id, data) {
 
 // Attempt update specific user by id. If backend rejects id, fallback to self-update.
 export async function updateUserById(id, data) {
-  const payload = { name: data.name?.trim(), email: data.email?.trim(), telp: data.telp?.trim() };
+  const payload = {
+    name: data.name?.trim(),
+    email: data.email?.trim(),
+    telp: data.telp?.trim(),
+  };
   if (data.password) {
     payload.password = data.password;
     if (data.currentPassword) payload.currentPassword = data.currentPassword;
@@ -39,7 +51,10 @@ export async function updateUserById(id, data) {
     const res = await axiosClient.put(`${USER_BASE}/${id}`, payload);
     return res.data;
   } catch (err) {
-    if (err.response?.data?.errors?.includes('"id" is not allowed') || err.response?.status === 404) {
+    if (
+      err.response?.data?.errors?.includes('"id" is not allowed') ||
+      err.response?.status === 404
+    ) {
       // Fallback to self-update path if API doesn't support update-by-id
       const res = await axiosClient.put(USER_UPDATE_PATH, payload);
       return res.data;
