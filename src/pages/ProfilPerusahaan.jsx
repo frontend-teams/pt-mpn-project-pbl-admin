@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import DashboardLayout from "../components/layout/DashboardLayout";
-import { Save, RotateCcw, Plus, X, Trash2 } from "lucide-react";
+import { Save, RotateCcw, Plus, X, Trash2, Building2Icon } from "lucide-react";
 import { getProfil, updateProfil } from "../api/profilApi"; // Import API
 import { ToastContainer, toast } from "react-toastify";
 import "../styles/pages/Profil.css";
@@ -131,7 +131,8 @@ const ProfilPerusahaan = () => {
         <ToastContainer position="top-right" />
 
         <div className="mb-4">
-          <h2 className="fw-bold text-dark">Profil Perusahaan</h2>
+          <h2 className="fw-bold fs-3 d-flex align-items-center gap-2 mb-1">
+            <Building2Icon size={28} className="text-primary" /> Profil Perusahaan</h2>
           <p className="text-muted">
             Kelola data utama perusahaan yang akan ditampilkan di website.
           </p>

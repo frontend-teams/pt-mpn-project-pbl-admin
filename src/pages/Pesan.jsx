@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import DashboardLayout from "../components/layout/DashboardLayout";
-import { Eye, Trash2, X, Search, Mail, Tag } from "lucide-react";
+import { Eye, Trash2, X, Search, Mail, Tag, MessagesSquare } from "lucide-react";
 import { toast, ToastContainer } from "react-toastify"; // Tambahkan notifikasi
 import "../styles/pages/Pesan.css";
 import { deletePesan, getPesan, updatePesan } from "../api/pesanApi";
@@ -116,7 +116,8 @@ const Pesan = () => {
         <ToastContainer position="top-right" autoClose={3000} />
 
         <div className="mb-4">
-          <h2 className="fw-bold text-dark">Pesan Kontak</h2>
+          <h2 className="fw-bold fs-3 d-flex align-items-center gap-2 mb-1">
+            <MessagesSquare size={28} className="text-primary" /> Pesan Kontak</h2>
           <div className="d-flex align-items-center gap-2">
             <span className="text-muted">
               Kelola pesan masuk dari pengunjung website
