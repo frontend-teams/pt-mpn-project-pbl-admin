@@ -162,8 +162,8 @@ export default function Layanan() {
         {/* Header */}
         <div className="d-flex justify-content-between align-items-center mb-4">
           <div>
-            <h2 className="fw-bold d-flex align-items-center gap-2 mb-1">
-              <Briefcase size={28} className="text-primary" /> Layanan
+            <h2 className="fw-bold fs-3 d-flex align-items-center gap-2 mb-1">
+              <Briefcase size={32} className="text-primary" /> Layanan
             </h2>
             <p className="text-muted mb-0">Kelola Bidang Usaha Utama</p>
           </div>
